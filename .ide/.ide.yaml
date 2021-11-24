@@ -1,0 +1,33 @@
+
+  version: smartide/v0.2
+  orchestrator:
+    type: docker-compose
+    version: 3
+  workspace:
+    dev-container:
+      service-name: uni-app
+      webide-port: 6800
+      ide-type: vscode  #vscode/theia
+      volumes: 
+        git-config: true
+        ssh-key: true
+    services:
+  
+      uni-app:
+        image: registry.cn-hangzhou.aliyuncs.com/smartide/smartide-opvscode-node:latest
+        environment:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          ROOT_PASSWORD: root123
+        restart: always
+        volumes:
+          - .:/home/project
+        expose:
+          - 3000
+        ports:
+          - 8085:8085
+        networks:
+          - smartide-network
+  
+    networks:
+      smartide-network:
+        external: true
