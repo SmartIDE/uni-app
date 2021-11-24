@@ -24,7 +24,7 @@
         expose:
           - 3000
         ports:
-          - 8085:8085
+          - 8080:8080
         networks:
           - smartide-network
   
